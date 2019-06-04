@@ -1,9 +1,15 @@
 pipeline {
     agent any
+    tools { 
+        maven "localMaven"
+    }   
     stages{
         stage('Build'){
             steps{
                sh 'mvn clean package'
+                sh "docker build . -t tomcatwebapp:${env.BUILD_ID}" 
+                   echo "PATH = ${PATH}"
+                   echo "M2_HOME = ${M2_HOME}"
           }
 }
 }
